@@ -12,8 +12,9 @@ function NavBar({status}){
                     <NavLink exact to="/login">Login</NavLink>
                 </> : 
                 <>
-                    <NavLink exact to="/feed">Feed</NavLink>
-                    <NavLink exact to="/me">Me</NavLink>
+                    <NavLink exact to="/feed">Feed</NavLink><br />
+                    <NavLink exact to="/me">Me</NavLink><br />
+                    <NavLink exact to="/logout">logout</NavLink>
                 </>
             }
         </nav>

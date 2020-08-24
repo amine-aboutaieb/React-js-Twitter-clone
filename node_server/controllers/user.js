@@ -35,9 +35,10 @@ module.exports = {
                     let authData = {};
                     authData.email = data[0].email;
                     authData.username = data[0].userName;
+                    authData.id = data[0].id;
                     req.session.AuthData = authData;
                     console.log("SESSION DATA : ",req.session.AuthData);
-                    res.json({status : 'ok',data : authData});
+                    res.json({status : 'ok',data : {email : data[0].email, username : data[0].userName}});
                 }else{
                     res.json({status : 'notFound'});
                 }
@@ -50,9 +51,16 @@ module.exports = {
     },
     checkAuth : (req,res)=>{
         if(req.session.AuthData){
-            res.json({status : true,AuthData : req.session.AuthData});
+            res.json({status : true,AuthData : {email : req.session.AuthData.email, username : req.session.AuthData.username}});
         }else{
             res.json({status : false});
+        }
+    },
+    logout : (req,res)=>{
+        if(req.session){
+            req.session.destroy();
+            req.session = null;
+            res.json({status : true});
         }
     }
 };

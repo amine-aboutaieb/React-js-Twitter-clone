@@ -16,18 +16,22 @@ class Login extends React.Component{
     login = (e)=>{
         
         e.preventDefault();
+        this.props.setLoading();
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = ()=>{
             if(xhr.readyState === 4 && xhr.status === 200){
                 let response = JSON.parse(xhr.response);
                 if(response.status === 'ok'){
                     this.props.logSuccess(response.data);
+                    this.props.setLoading();
                 }
                 else if(response.status === 'notFound'){
                     alert('Could not find account');
+                    this.props.setLoading();
                 }
                 else if(response.status === 'empty'){
                     alert('All fields must be filled');
+                    this.props.setLoading();
                 }
             }
         }

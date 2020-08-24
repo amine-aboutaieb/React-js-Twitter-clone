@@ -1,12 +1,14 @@
 import React,{Component} from 'react';
 import Router from './Router';
 import loading from '../load.gif';
+import Context from './Context';
 
 class App extends Component {
 
   state = {
     loged : false,
     loading : true,
+
     AuthData : {
       email : null,
       username : null
@@ -22,7 +24,6 @@ class App extends Component {
     xhr.onreadystatechange = ()=>{
       if(xhr.readyState === 4 && xhr.status === 200){
         let response = JSON.parse(xhr.response);
-        console.log(response);
         if(response.status){
           let authData = response.AuthData;
           this.setState({
@@ -44,14 +45,27 @@ class App extends Component {
       AuthData : obj
     });
   }
-  
+  setLoading = ()=>{
+    (this.state.loading) ?(this.setState({loading : false})) : this.setState({loading : true});
+  }
+  logout = ()=>{
+    this.setState({
+      loged : false,
+      AuthData : {
+        email : null,
+        username : null
+      }
+    });
+  }
 
   render(){
     return (
       <div className="App">
 
         <h1>Twitter clone</h1>
-        {(this.state.loading)?<img src={loading} id="loading" />:<Router status={this.state.loged} logSuccess={this.logSuccess} />}
+        <Context.Provider value={this.state.AuthData}>
+        {(this.state.loading)?<img src={loading} id="loading" />:<Router status={this.state.loged} logSuccess={this.logSuccess} setLoading={this.setLoading} logout={this.logout} />}
+        </Context.Provider>
       </div>
     );
   }
