@@ -46,5 +46,27 @@ module.exports = {
                 }
             })
         });
+    },
+    searchUsers : (username)=>{
+        return new Promise((resolve,reject)=>{
+            con.query(`SELECT userName, firstName, lastName FROM users WHERE userName LIKE '%${username}%' OR firstName LIKE '%${username}%' OR lastName LIKE '%${username}%';`,(error,data)=>{
+                if(error){
+                    reject(error);
+                }else{
+                    resolve(data);
+                }
+            });
+        });
+    },
+    getProfile : (username)=>{
+        return new Promise((resolve,reject)=>{
+            con.query(`SELECT firstName, lastName, email FROM users WHERE username LIKE '${username}';`,(error,data)=>{
+                if(error){
+                    reject(error);
+                }else{
+                    resolve(data);
+                }
+            });
+        });
     }
 }

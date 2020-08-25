@@ -17,8 +17,16 @@ router.get('/checkAuth',(req,res)=>{
     UserController.checkAuth(req,res);
 });
 
-router.get('/logout',(req,res)=>{
+router.post('/logout',(req,res)=>{
     UserController.logout(req,res);
+});
+
+router.get('/searchUsers/:username',(req,res)=>{
+    UserController.searchUsers(req,res);
+});
+
+router.get('/getProfile/:username',(req,res)=>{
+    UserController.getProfile(req,res);
 });
 
 module.exports = router;

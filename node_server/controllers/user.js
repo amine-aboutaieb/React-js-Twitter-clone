@@ -1,4 +1,5 @@
 const UserModel = require('../models/user');
+const PostModel = require('../models/post');
 
 
 module.exports = {
@@ -62,5 +63,29 @@ module.exports = {
             req.session = null;
             res.json({status : true});
         }
+    },
+
+    searchUsers : (req,res)=>{
+        let username = req.params.username;
+        UserModel.searchUsers(username).then((data)=>{
+            res.json({status : true,data : data});
+        }).catch((error)=>{
+            res.json({status : error});
+        });
+    },
+    getProfile : (req,res)=>{
+        let username = req.params.username;
+        UserModel.getProfile(username).then((data)=>{
+            let userProfile = data;
+            PostModel.getProfilePosts(username).then((result)=>{
+                let userPosts = result;
+                let userData = [userProfile,userPosts];
+                res.json({profile:userData});
+            }).catch((err)=>{
+                reject(err);
+            });
+        }).catch((error)=>{
+            reject(error);
+        });
     }
 };

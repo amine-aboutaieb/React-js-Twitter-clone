@@ -16,7 +16,7 @@ class Logout extends React.Component{
                 }
             }
         }
-        xhr.open('GET','http://localhost:5500/logout',true);
+        xhr.open('POST','http://localhost:5500/logout',true);
         xhr.withCredentials = true;
         xhr.send();
         

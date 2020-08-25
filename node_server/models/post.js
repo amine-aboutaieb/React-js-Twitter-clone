@@ -29,5 +29,16 @@ module.exports = {
                 }           
             });
         });
+    },
+    getProfilePosts : (username)=>{
+        return new Promise((resolve,reject)=>{
+            con.query(`SELECT id, content, post_time FROM posts WHERE user_id = (SELECT id FROM users WHERE username LIKE '${username}');`,(error,data)=>{
+                if(error){
+                    reject(error);
+                }else{
+                    resolve(data);
+                }
+            });
+        });
     }
 }

@@ -64,7 +64,7 @@ class App extends Component {
 
         <h1>Twitter clone</h1>
         <Context.Provider value={this.state.AuthData}>
-        {(this.state.loading)?<img src={loading} id="loading" />:<Router status={this.state.loged} logSuccess={this.logSuccess} setLoading={this.setLoading} logout={this.logout} />}
+        {(this.state.loading)?<img src={loading} id="loading" />:<Router status={this.state.loged} logSuccess={this.logSuccess} setLoading={this.setLoading} logout={this.logout} authdata={this.state.AuthData} />}
         </Context.Provider>
       </div>
     );
